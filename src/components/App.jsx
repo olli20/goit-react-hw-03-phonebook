@@ -8,13 +8,27 @@ import styles from './app.module.scss';
 class App extends Component {
   state = {
     contacts: [
-      {id: 'id-1', name: 'General emergencies', number: '112'},
-      {id: 'id-2', name: 'Police', number: '102'},
-      {id: 'id-3', name: 'Ambulance', number: '103'},
-      {id: 'id-4', name: 'Fire', number: '101'},
-      {id: 'id-5', name: 'Gas emergency', number: '104'},
+      // {id: 'id-1', name: 'General emergencies', number: '112'},
+      // {id: 'id-2', name: 'Police', number: '102'},
+      // {id: 'id-3', name: 'Ambulance', number: '103'},
+      // {id: 'id-4', name: 'Fire', number: '101'},
+      // {id: 'id-5', name: 'Gas emergency', number: '104'},
     ],
     filter: "",
+  }
+
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem("my-contacts")); 
+    if(contacts?.length) { // contacts && contacts.length
+      this.setState({contacts});
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const {contacts} = this.state;
+    if(contacts.length !== prevState.contacts.length) {
+      localStorage.setItem("my-contacts", JSON.stringify(contacts));
+    }
   }
 
   deleteContact = contactId => {
@@ -43,6 +57,7 @@ class App extends Component {
   }
   
   render() {
+
     const {contacts, filter} = this.state;
     const filteredContacts = this.getFilteredContacts();
 

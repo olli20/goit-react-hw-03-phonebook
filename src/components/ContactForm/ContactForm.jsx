@@ -13,6 +13,7 @@ class ContactForm extends Component {
     nameInputId = nanoid();
     numberInputId = nanoid();
 
+
     handleInputChange = event => {
         const {name, value} = event.currentTarget;
         this.setState({
@@ -27,8 +28,7 @@ class ContactForm extends Component {
 
         const isNameAlreadyHere = contacts.filter(contact => contact.name.toLowerCase() === name.toLowerCase()).length;
         if(isNameAlreadyHere){
-          alert(`${name} is already in contacts`);
-          return;
+           return alert(`${name} is already in contacts`);
         };
        
         const newContact = {
